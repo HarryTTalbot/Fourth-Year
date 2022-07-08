@@ -1,0 +1,49 @@
+# Development-only Environment Variables
+.env
+
+# NodeJS Frontend
+**/node_modules/
+frontend/public/build/
+
+# JavaScript Client API
+frontend/kumon_app_backend_api/dist/
+
+# Python
+.venv/*
+**/__pycache__/*
+.python-version
+
+# Django
+db.sqlite3
+**/migrations/*
+staticfiles/
+backend_api/file_storage/*
+
+# Pyinstaller
+build/*
+dist/*
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Vim Swap Files
+*.swp
+
+# macOS metadata
+**/.DS_Store
+
+# DB Imports/Exports
+backend_api/file_storage/*
+
+# Dummy Data
+backend_api/data_gen/*.json
+backend_api/data_gen/staff-passwords.csv
+
+# Dev app data
+dev_app_data/*
+

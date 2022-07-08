@@ -1,0 +1,5 @@
+# Automatically handle CRLF and LF
+* text=auto
+
+# Make sure .sh files are always in LF (otherwise they won't run properly)
+*.sh text eol=lf

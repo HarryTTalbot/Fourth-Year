@@ -1,0 +1,34 @@
+version: "3"
+services:
+  api-schema:
+    profiles: ["cli-only"]
+    build: .
+    user: "${UGID}"
+    volumes:
+      - .:/app
+    entrypoint: ["python", "manage.py", "spectacular", "--file", "./openapi_schema/schema.yml"]
+  api-client:
+    profiles: ["cli-only"]
+    depends_on:
+      - api-schema
+    image: openapitools/openapi-generator-cli:v5.3.1
+    user: "${UGID}"
+    volumes:
+      - .:/app
+    command: ["generate", "-i", "/app/openapi_schema/schema.yml", "-c", "/app/openapi_schema/generator_config.json", "-g", "typescript-fetch", "-o", "/app/frontend/kumon_app_backend_api"]
+  backend:
+    profiles: ["dev"]
+    build: .
+    user: "${UGID}"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+  frontend:
+    profiles: ["dev"]
+    build: ./frontend/
+    user: "${UGID}"
+    ports:
+      - "35729:35729"
+    volumes:
+      - ./frontend:/app

@@ -1,0 +1,5239 @@
+openapi: 3.0.3
+info:
+  title: Kumon App - Backend API
+  version: 1.0.0
+  description: Backend API for the Kumon Centre Management app.
+paths:
+  /api/authentication/admin_forgot_password/:
+    post:
+      operationId: authentication_admin_forgot_password_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotAdminPasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ForgotAdminPasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ForgotAdminPasswordRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/authentication/admin_set_password/:
+    post:
+      operationId: authentication_admin_set_password_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetPasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetPasswordRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/authentication/edit_password/:
+    post:
+      operationId: authentication_edit_password_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditPasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EditPasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EditPasswordRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/authentication/get_logged_in_staff/:
+    get:
+      operationId: authentication_get_logged_in_staff_retrieve
+      tags:
+      - authentication
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+          description: ''
+  /api/authentication/is_setup/:
+    get:
+      operationId: authentication_is_setup_retrieve
+      tags:
+      - authentication
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/authentication/login/:
+    post:
+      operationId: authentication_login_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthTokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthTokenRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/authentication/new_account/:
+    post:
+      operationId: authentication_new_account_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAccountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddAccountRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddAccountRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/authentication/new_admin_account/:
+    post:
+      operationId: authentication_new_admin_account_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAdminAccountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddAdminAccountRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddAdminAccountRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/bulk-item/:
+    get:
+      operationId: bulk_item_list
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - bulk-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBulkItemList'
+          description: ''
+    post:
+      operationId: bulk_item_create
+      description: Provides API functionality for managing bulk item inventory.
+      tags:
+      - bulk-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BulkItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BulkItemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkItem'
+          description: ''
+  /api/bulk-item/{id}/:
+    get:
+      operationId: bulk_item_retrieve
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      tags:
+      - bulk-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkItem'
+          description: ''
+    put:
+      operationId: bulk_item_update
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      tags:
+      - bulk-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BulkItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BulkItemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkItem'
+          description: ''
+    patch:
+      operationId: bulk_item_partial_update
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      tags:
+      - bulk-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBulkItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBulkItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBulkItemRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkItem'
+          description: ''
+    delete:
+      operationId: bulk_item_destroy
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      tags:
+      - bulk-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/bulk-item/{id}/history/:
+    get:
+      operationId: bulk_item_history_list
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - bulk-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBulkItemLogList'
+          description: ''
+  /api/bulk-item/{id}/restock/:
+    post:
+      operationId: bulk_item_restock_create
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      tags:
+      - bulk-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemRestockRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemRestockRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemRestockRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/bulk-item/{id}/withdraw/:
+    post:
+      operationId: bulk_item_withdraw_create
+      description: Provides API functionality for managing bulk item inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bulk item.
+        required: true
+      tags:
+      - bulk-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemWithdrawRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemWithdrawRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemWithdrawRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/center-details/:
+    post:
+      operationId: center_details_create
+      description: Provides API functionality for managing center details.
+      tags:
+      - center-details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CenterDetailsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CenterDetailsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CenterDetailsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CenterDetails'
+          description: ''
+  /api/center-details/fetch/:
+    get:
+      operationId: center_details_fetch_retrieve
+      description: Provides API functionality for managing center details.
+      tags:
+      - center-details
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CenterDetails'
+          description: ''
+  /api/classes/:
+    get:
+      operationId: classes_list
+      description: Provides API functionality for viewing and editing class information.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - classes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedClassList'
+          description: ''
+    post:
+      operationId: classes_create
+      description: Provides API functionality for viewing and editing class information.
+      tags:
+      - classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClassRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClassRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+  /api/classes/{id}/:
+    get:
+      operationId: classes_retrieve
+      description: Provides API functionality for viewing and editing class information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+    put:
+      operationId: classes_update
+      description: Provides API functionality for viewing and editing class information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClassRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClassRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+    patch:
+      operationId: classes_partial_update
+      description: Provides API functionality for viewing and editing class information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedClassRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedClassRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedClassRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+    delete:
+      operationId: classes_destroy
+      description: Provides API functionality for viewing and editing class information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/classes/{id}/add_students/:
+    post:
+      operationId: classes_add_students
+      description: Adds the given students to the specified class.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/classes/{id}/get_students/:
+    get:
+      operationId: classes_get_students_list
+      description: Gets the students in the specified class.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - classes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentList'
+          description: ''
+  /api/classes/{id}/get_students_not_in_class/:
+    get:
+      operationId: classes_get_students_not_in_class_list
+      description: Gets the students who are not in the specified class.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - classes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStudentListList'
+          description: ''
+  /api/classes/{id}/remove_students/:
+    post:
+      operationId: classes_remove_students
+      description: Removes the given students from the specified class.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/classes/{id}/set_students/:
+    post:
+      operationId: classes_set_students
+      description: Sets the students for the specified class.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this class.
+        required: true
+      tags:
+      - classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassStudentsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/contacts/:
+    get:
+      operationId: contacts_list
+      description: Provides API functionality for viewing and editing student contacts
+        information.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - contacts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedContactListList'
+          description: ''
+    post:
+      operationId: contacts_create
+      description: Provides API functionality for viewing and editing student contacts
+        information.
+      tags:
+      - contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/contacts/{id}/:
+    get:
+      operationId: contacts_retrieve
+      description: Provides API functionality for viewing and editing student contacts
+        information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this contact_ detail.
+        required: true
+      tags:
+      - contacts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+    put:
+      operationId: contacts_update
+      description: Provides API functionality for viewing and editing student contacts
+        information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this contact_ detail.
+        required: true
+      tags:
+      - contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+    patch:
+      operationId: contacts_partial_update
+      description: Provides API functionality for viewing and editing student contacts
+        information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this contact_ detail.
+        required: true
+      tags:
+      - contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedContactRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+    delete:
+      operationId: contacts_destroy
+      description: Provides API functionality for viewing and editing student contacts
+        information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this contact_ detail.
+        required: true
+      tags:
+      - contacts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/contacts/{id}/get_students/:
+    get:
+      operationId: contacts_get_students_list
+      description: Retrieves the students for the specified contact.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this contact_ detail.
+        required: true
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - contacts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactGetStudents'
+          description: ''
+  /api/delete_expired:
+    get:
+      operationId: delete_expired_retrieve
+      tags:
+      - delete_expired
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/export/:
+    get:
+      operationId: export_retrieve
+      description: Exports the database contents to a backup file.
+      tags:
+      - export
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/import/:
+    get:
+      operationId: import_list
+      description: Lists all of the imports that were previously performed on this
+        database.
+      tags:
+      - import
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+          description: ''
+    post:
+      operationId: import_create
+      description: Imports data from either a K-SIS export or an existing backup file.
+      tags:
+      - import
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+          description: ''
+  /api/import/{id}/download/:
+    get:
+      operationId: import_download_retrieve
+      description: Downloads the import file associated with the given import ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this file.
+        required: true
+      tags:
+      - import
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/import/first_import/:
+    post:
+      operationId: import_first_import_create
+      description: Imports data from  an existing backup file.
+      tags:
+      - import
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+          description: ''
+  /api/item-loan/:
+    get:
+      operationId: item_loan_list
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - item-loan
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedItemLoanList'
+          description: ''
+    post:
+      operationId: item_loan_create
+      description: Provides API functionality for managing lending of lendable items.
+      tags:
+      - item-loan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemLoanRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemLoanRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemLoanRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemLoan'
+          description: ''
+  /api/item-loan/{id}/:
+    get:
+      operationId: item_loan_retrieve
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item loan.
+        required: true
+      tags:
+      - item-loan
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemLoan'
+          description: ''
+    put:
+      operationId: item_loan_update
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item loan.
+        required: true
+      tags:
+      - item-loan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemLoanRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemLoanRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemLoanRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemLoan'
+          description: ''
+    patch:
+      operationId: item_loan_partial_update
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item loan.
+        required: true
+      tags:
+      - item-loan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedItemLoanRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedItemLoanRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedItemLoanRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemLoan'
+          description: ''
+    delete:
+      operationId: item_loan_destroy
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item loan.
+        required: true
+      tags:
+      - item-loan
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/item-loan/{id}/return_item/:
+    post:
+      operationId: item_loan_return_item_create
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item loan.
+        required: true
+      tags:
+      - item-loan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReturnItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReturnItemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/item-loan/history/:
+    get:
+      operationId: item_loan_history_list
+      description: Provides API functionality for managing lending of lendable items.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - item-loan
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedItemLoanLogList'
+          description: ''
+  /api/lendable-item/:
+    get:
+      operationId: lendable_item_list
+      description: Provides API functionality for managing lendable items.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - lendable-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLendableItemViewList'
+          description: ''
+    post:
+      operationId: lendable_item_create
+      description: Provides API functionality for managing lendable items.
+      tags:
+      - lendable-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LendableItemEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LendableItemEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LendableItemEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendableItemEdit'
+          description: ''
+  /api/lendable-item/{id}/:
+    get:
+      operationId: lendable_item_retrieve
+      description: Provides API functionality for managing lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lendable item.
+        required: true
+      tags:
+      - lendable-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendableItemView'
+          description: ''
+    put:
+      operationId: lendable_item_update
+      description: Provides API functionality for managing lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lendable item.
+        required: true
+      tags:
+      - lendable-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LendableItemEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LendableItemEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LendableItemEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendableItemEdit'
+          description: ''
+    patch:
+      operationId: lendable_item_partial_update
+      description: Provides API functionality for managing lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lendable item.
+        required: true
+      tags:
+      - lendable-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLendableItemEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLendableItemEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLendableItemEditRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendableItemEdit'
+          description: ''
+    delete:
+      operationId: lendable_item_destroy
+      description: Provides API functionality for managing lendable items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lendable item.
+        required: true
+      tags:
+      - lendable-item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/lesson/:
+    get:
+      operationId: lesson_list
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLessonViewList'
+          description: ''
+    post:
+      operationId: lesson_create
+      description: Provides API functionality for viewing and editing lesson information.
+      tags:
+      - lesson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LessonEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LessonEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonEdit'
+          description: ''
+  /api/lesson/{id}/:
+    get:
+      operationId: lesson_retrieve
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonView'
+          description: ''
+    put:
+      operationId: lesson_update
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LessonEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LessonEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonEdit'
+          description: ''
+    patch:
+      operationId: lesson_partial_update
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLessonEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLessonEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLessonEditRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonEdit'
+          description: ''
+    delete:
+      operationId: lesson_destroy
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/lesson/{id}/get_attendance/:
+    get:
+      operationId: lesson_get_attendance_list
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LessonGetAttendance'
+          description: ''
+  /api/lesson/{id}/get_attendance_sheet/:
+    get:
+      operationId: lesson_get_attendance_sheet_retrieve
+      description: Returns a printable PDF for recording attendance
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/lesson/{id}/set_attendance/:
+    post:
+      operationId: lesson_set_attendance_create
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lesson.
+        required: true
+      tags:
+      - lesson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LessonSetAttendanceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LessonSetAttendanceRequest'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LessonSetAttendanceRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/lesson/past/:
+    get:
+      operationId: lesson_past_list
+      description: Provides API functionality for viewing and editing lesson information.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLessonViewList'
+          description: ''
+  /api/lesson/today/:
+    get:
+      operationId: lesson_today_list
+      description: Provides API functionality for viewing and editing lesson information.
+      tags:
+      - lesson
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LessonView'
+          description: ''
+  /api/long-term-absence/:
+    get:
+      operationId: long_term_absence_list
+      description: Provides API functionality for viewing and editing student long
+        term absences.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - long-term-absence
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLongTermAbsenceViewList'
+          description: ''
+    post:
+      operationId: long_term_absence_create
+      description: Provides API functionality for viewing and editing student long
+        term absences.
+      tags:
+      - long-term-absence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LongTermAbsenceEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LongTermAbsenceEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LongTermAbsenceEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LongTermAbsenceEdit'
+          description: ''
+  /api/long-term-absence/{id}/:
+    get:
+      operationId: long_term_absence_retrieve
+      description: Provides API functionality for viewing and editing student long
+        term absences.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this long term absence.
+        required: true
+      tags:
+      - long-term-absence
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LongTermAbsenceView'
+          description: ''
+    put:
+      operationId: long_term_absence_update
+      description: Provides API functionality for viewing and editing student long
+        term absences.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this long term absence.
+        required: true
+      tags:
+      - long-term-absence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LongTermAbsenceEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LongTermAbsenceEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LongTermAbsenceEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LongTermAbsenceEdit'
+          description: ''
+    patch:
+      operationId: long_term_absence_partial_update
+      description: Provides API functionality for viewing and editing student long
+        term absences.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this long term absence.
+        required: true
+      tags:
+      - long-term-absence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLongTermAbsenceEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLongTermAbsenceEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLongTermAbsenceEditRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LongTermAbsenceEdit'
+          description: ''
+    delete:
+      operationId: long_term_absence_destroy
+      description: Provides API functionality for viewing and editing student long
+        term absences.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this long term absence.
+        required: true
+      tags:
+      - long-term-absence
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/openapi/:
+    get:
+      operationId: openapi_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - openapi
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/record-sheet/create_student_sheet/:
+    post:
+      operationId: record_sheet_create_student_sheet_create
+      tags:
+      - record-sheet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRecordSheetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentRecordSheetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentRecordSheetRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/staff/:
+    get:
+      operationId: staff_list
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStaffList'
+          description: ''
+    post:
+      operationId: staff_create
+      description: Provides API functionality for viewing and editing staff information.
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffCreateRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffCreate'
+          description: ''
+  /api/staff/{id}/:
+    get:
+      operationId: staff_retrieve
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+          description: ''
+    put:
+      operationId: staff_update
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+          description: ''
+    patch:
+      operationId: staff_partial_update
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+          description: ''
+    delete:
+      operationId: staff_destroy
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/staff/{id}/gdpr_delete/:
+    delete:
+      operationId: staff_gdpr_delete_destroy
+      description: Deletes records in a GDPR-compliant manner
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/staff/{id}/gdpr_restore/:
+    post:
+      operationId: staff_gdpr_restore_create
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/staff/{id}/get_data/:
+    get:
+      operationId: staff_get_data_retrieve
+      description: Returns a summary of all of the data stored about a staff member
+        in PDF format
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this staff.
+        required: true
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/staff/list_deleted/:
+    get:
+      operationId: staff_list_deleted_list
+      description: Provides API functionality for viewing and editing staff information.
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentDeleted'
+          description: ''
+  /api/students/:
+    get:
+      operationId: students_list
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStudentListList'
+          description: ''
+    post:
+      operationId: students_create
+      description: Provides API functionality for viewing and editing student information.
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+  /api/students/{id}/:
+    get:
+      operationId: students_retrieve
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    put:
+      operationId: students_update
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    patch:
+      operationId: students_partial_update
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    delete:
+      operationId: students_destroy
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/students/{id}/add_contacts/:
+    post:
+      operationId: students_add_contacts_create
+      description: Adds the given contacts to the specified student.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentAddContactsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentAddContactsRequest'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentAddContactsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/students/{id}/gdpr_delete/:
+    delete:
+      operationId: students_gdpr_delete_destroy
+      description: Deletes records in a GDPR-compliant manner
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/students/{id}/gdpr_restore/:
+    post:
+      operationId: students_gdpr_restore_create
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/students/{id}/get_attendance/:
+    get:
+      operationId: students_get_attendance_list
+      description: Retrieves the lesson attendance record for the specified student.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStudentGetAttendanceList'
+          description: ''
+  /api/students/{id}/get_classes/:
+    get:
+      operationId: students_get_classes_list
+      description: Retrieves classes for the specified student belongs to.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+          description: ''
+  /api/students/{id}/get_contacts/:
+    get:
+      operationId: students_get_contacts_list
+      description: Retrieves the contacts for the specified student.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentGetContacts'
+          description: ''
+  /api/students/{id}/get_data/:
+    get:
+      operationId: students_get_data_retrieve
+      description: Returns a summary of all of the data stored about a student in
+        PDF format
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/students/{id}/get_lessons/:
+    get:
+      operationId: students_get_lessons_list
+      description: Retrieves the specified student's lessons.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLessonViewList'
+          description: ''
+  /api/students/{id}/remove_contacts/:
+    post:
+      operationId: students_remove_contacts_create
+      description: Removes the given contacts from the specified student.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this student.
+        required: true
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentRemoveContactsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentRemoveContactsRequest'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentRemoveContactsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/students/list_deleted/:
+    get:
+      operationId: students_list_deleted_list
+      description: Provides API functionality for viewing and editing student information.
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - students
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentDeleted'
+          description: ''
+  /api/subject/:
+    get:
+      operationId: subject_list
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - subject
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subject'
+          description: ''
+    post:
+      operationId: subject_create
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      tags:
+      - subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+          description: ''
+  /api/subject/{id}/:
+    get:
+      operationId: subject_retrieve
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      tags:
+      - subject
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+          description: ''
+    put:
+      operationId: subject_update
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      tags:
+      - subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+          description: ''
+    patch:
+      operationId: subject_partial_update
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      tags:
+      - subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSubjectRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSubjectRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSubjectRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+          description: ''
+    delete:
+      operationId: subject_destroy
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      tags:
+      - subject
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/subject/{id}/add_level/:
+    post:
+      operationId: subject_add_level_create
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      tags:
+      - subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectAddLevelRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubjectAddLevelRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubjectAddLevelRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/subject/{id}/get_levels/:
+    get:
+      operationId: subject_get_levels_list
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - subject
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubjectGetLevel'
+          description: ''
+  /api/subject/{id}/remove_level/:
+    post:
+      operationId: subject_remove_level_create
+      description: Provides API functionality for viewing and editing subject and
+        subject level information.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this subject.
+        required: true
+      tags:
+      - subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectRemoveLevelRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubjectRemoveLevelRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubjectRemoveLevelRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/worksheet/:
+    get:
+      operationId: worksheet_list
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - worksheet
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedWorksheetViewList'
+          description: ''
+    post:
+      operationId: worksheet_create
+      description: Provides API functionality for managing worksheet inventory.
+      tags:
+      - worksheet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorksheetEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WorksheetEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WorksheetEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorksheetEdit'
+          description: ''
+  /api/worksheet/{id}/:
+    get:
+      operationId: worksheet_retrieve
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      tags:
+      - worksheet
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorksheetView'
+          description: ''
+    put:
+      operationId: worksheet_update
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      tags:
+      - worksheet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorksheetEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WorksheetEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WorksheetEditRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorksheetEdit'
+          description: ''
+    patch:
+      operationId: worksheet_partial_update
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      tags:
+      - worksheet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedWorksheetEditRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedWorksheetEditRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedWorksheetEditRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorksheetEdit'
+          description: ''
+    delete:
+      operationId: worksheet_destroy
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      tags:
+      - worksheet
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/worksheet/{id}/history/:
+    get:
+      operationId: worksheet_history_list
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - worksheet
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedWorksheetLogList'
+          description: ''
+  /api/worksheet/{id}/restock/:
+    post:
+      operationId: worksheet_restock_create
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      tags:
+      - worksheet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemRestockRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemRestockRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemRestockRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/worksheet/{id}/withdraw/:
+    post:
+      operationId: worksheet_withdraw_create
+      description: Provides API functionality for managing worksheet inventory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this worksheet.
+        required: true
+      tags:
+      - worksheet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemWithdrawRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemWithdrawRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemWithdrawRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/worksheet/record_sheet/:
+    get:
+      operationId: worksheet_record_sheet_retrieve
+      description: Provides API functionality for managing worksheet inventory.
+      tags:
+      - worksheet
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorksheetEdit'
+          description: ''
+components:
+  schemas:
+    AddAccountRequest:
+      type: object
+      description: Serializer for creating a new account.
+      properties:
+        username:
+          type: string
+          minLength: 1
+          maxLength: 50
+        password:
+          type: string
+          minLength: 1
+          maxLength: 50
+        confirm_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - confirm_password
+      - password
+      - username
+    AddAdminAccountRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        job_title:
+          type: string
+          minLength: 1
+          maxLength: 50
+        username:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+        confirm_password:
+          type: string
+          minLength: 1
+        passcode:
+          type: string
+          minLength: 1
+        confirm_passcode:
+          type: string
+          minLength: 1
+      required:
+      - confirm_passcode
+      - confirm_password
+      - first_name
+      - job_title
+      - last_name
+      - passcode
+      - password
+      - username
+    Address:
+      type: object
+      properties:
+        line_one:
+          type: string
+          maxLength: 50
+        line_two:
+          type: string
+          maxLength: 50
+        line_three:
+          type: string
+          maxLength: 50
+        city_town:
+          type: string
+          maxLength: 50
+        province_district:
+          type: string
+          maxLength: 50
+        post_code:
+          type: string
+          maxLength: 50
+        country:
+          type: string
+          maxLength: 50
+      required:
+      - country
+      - line_one
+      - post_code
+    AddressRequest:
+      type: object
+      properties:
+        line_one:
+          type: string
+          minLength: 1
+          maxLength: 50
+        line_two:
+          type: string
+          maxLength: 50
+        line_three:
+          type: string
+          maxLength: 50
+        city_town:
+          type: string
+          maxLength: 50
+        province_district:
+          type: string
+          maxLength: 50
+        post_code:
+          type: string
+          minLength: 1
+          maxLength: 50
+        country:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - country
+      - line_one
+      - post_code
+    AuthToken:
+      type: object
+      properties:
+        token:
+          type: string
+          readOnly: true
+      required:
+      - token
+    AuthTokenRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
+    BulkItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        quantity:
+          type: integer
+      required:
+      - id
+      - name
+    BulkItemLog:
+      type: object
+      properties:
+        staff_id:
+          type: integer
+          nullable: true
+        type:
+          $ref: '#/components/schemas/Type3beEnum'
+        quantity:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - quantity
+      - type
+    BulkItemRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        quantity:
+          type: integer
+      required:
+      - name
+    CenterDetails:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        phone_number:
+          type: string
+          maxLength: 17
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+      - address
+      - name
+      - phone_number
+    CenterDetailsRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        phone_number:
+          type: string
+          minLength: 1
+          maxLength: 17
+        address:
+          $ref: '#/components/schemas/AddressRequest'
+      required:
+      - address
+      - name
+      - phone_number
+    Class:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        size:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - name
+      - size
+    ClassRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - name
+    ClassStudentsRequest:
+      type: object
+      description: Serializer for managing class students.
+      properties:
+        student_id:
+          type: integer
+      required:
+      - student_id
+    Contact:
+      type: object
+      description: Serializer for contact details.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        phone_home:
+          type: string
+          maxLength: 17
+        phone_business:
+          type: string
+          maxLength: 17
+        phone_mobile:
+          type: string
+          maxLength: 17
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+      - address
+      - email
+      - first_name
+      - id
+      - last_name
+      - phone_mobile
+    ContactGetStudents:
+      type: object
+      properties:
+        student_id:
+          $ref: '#/components/schemas/StudentList'
+        relationship:
+          type: string
+          maxLength: 50
+      required:
+      - relationship
+      - student_id
+    ContactList:
+      type: object
+      description: Serializer for contact details which only includes ID and name.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+      required:
+      - email
+      - first_name
+      - id
+      - last_name
+    ContactRequest:
+      type: object
+      description: Serializer for contact details.
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        phone_home:
+          type: string
+          maxLength: 17
+        phone_business:
+          type: string
+          maxLength: 17
+        phone_mobile:
+          type: string
+          minLength: 1
+          maxLength: 17
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        address:
+          $ref: '#/components/schemas/AddressRequest'
+      required:
+      - address
+      - email
+      - first_name
+      - last_name
+      - phone_mobile
+    EditPasswordRequest:
+      type: object
+      description: Serializer for editing your password.
+      properties:
+        old_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+        new_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+        confirm_new_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - confirm_new_password
+      - new_password
+      - old_password
+    File:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/FileTypeEnum'
+        file:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - file
+      - id
+      - name
+    FileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/FileTypeEnum'
+        file:
+          type: string
+          format: binary
+      required:
+      - file
+      - name
+    FileTypeEnum:
+      enum:
+      - k_sis
+      - dumps
+      type: string
+    ForgotAdminPasswordRequest:
+      type: object
+      description: Serializer for setting a new admin password.
+      properties:
+        passcode:
+          type: string
+          minLength: 1
+          maxLength: 50
+        new_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+        confirm_new_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - confirm_new_password
+      - new_password
+      - passcode
+    GradeEnum:
+      enum:
+      - K
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+      - '11'
+      - '12'
+      - '13'
+      type: string
+    ItemLoan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        item_id:
+          type: integer
+        student_id:
+          type: integer
+        quantity:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - item_id
+      - quantity
+      - student_id
+    ItemLoanLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        item_id:
+          type: integer
+          nullable: true
+        student_id:
+          type: integer
+          nullable: true
+        quantity_lent:
+          type: integer
+        quantity_returned:
+          type: integer
+        loan_datetime:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - loan_datetime
+      - quantity_lent
+      - quantity_returned
+    ItemLoanRequest:
+      type: object
+      properties:
+        item_id:
+          type: integer
+        student_id:
+          type: integer
+        quantity:
+          type: integer
+      required:
+      - item_id
+      - quantity
+      - student_id
+    ItemRestockRequest:
+      type: object
+      properties:
+        staff_id:
+          type: integer
+        quantity:
+          type: integer
+          minimum: 1
+      required:
+      - quantity
+      - staff_id
+    ItemWithdrawRequest:
+      type: object
+      properties:
+        staff_id:
+          type: integer
+        quantity:
+          type: integer
+          minimum: 1
+      required:
+      - quantity
+      - staff_id
+    LendableItemEdit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        quantity_available:
+          type: integer
+      required:
+      - id
+      - name
+    LendableItemEditRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        quantity_available:
+          type: integer
+      required:
+      - name
+    LendableItemView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        quantity_available:
+          type: integer
+        quantity_lent:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - name
+      - quantity_lent
+    LessonEdit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        class_fk:
+          type: integer
+        subject_level:
+          type: integer
+      required:
+      - class_fk
+      - end_datetime
+      - id
+      - start_datetime
+      - subject_level
+    LessonEditRequest:
+      type: object
+      properties:
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        class_fk:
+          type: integer
+        subject_level:
+          type: integer
+      required:
+      - class_fk
+      - end_datetime
+      - start_datetime
+      - subject_level
+    LessonGetAttendance:
+      type: object
+      properties:
+        student:
+          $ref: '#/components/schemas/StudentList'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        last_modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - last_modified_at
+      - status
+      - student
+    LessonSetAttendanceRequest:
+      type: object
+      properties:
+        student:
+          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+      required:
+      - status
+      - student
+    LessonView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        class_fk:
+          $ref: '#/components/schemas/Class'
+        subject:
+          allOf:
+          - $ref: '#/components/schemas/Subject'
+          readOnly: true
+        subject_level:
+          $ref: '#/components/schemas/SubjectGetLevel'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        last_modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - class_fk
+      - created_at
+      - end_datetime
+      - id
+      - last_modified_at
+      - start_datetime
+      - subject
+      - subject_level
+    LongTermAbsenceEdit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student:
+          type: integer
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+      required:
+      - end_date
+      - id
+      - reason
+      - start_date
+      - student
+    LongTermAbsenceEditRequest:
+      type: object
+      properties:
+        student:
+          type: integer
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+          minLength: 1
+      required:
+      - end_date
+      - reason
+      - start_date
+      - student
+    LongTermAbsenceView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student:
+          $ref: '#/components/schemas/Student'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+      required:
+      - end_date
+      - id
+      - reason
+      - start_date
+      - student
+    PaginatedBulkItemList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkItem'
+    PaginatedBulkItemLogList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkItemLog'
+    PaginatedClassList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Class'
+    PaginatedContactListList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList'
+    PaginatedItemLoanList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemLoan'
+    PaginatedItemLoanLogList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemLoanLog'
+    PaginatedLendableItemViewList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LendableItemView'
+    PaginatedLessonViewList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LessonView'
+    PaginatedLongTermAbsenceViewList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LongTermAbsenceView'
+    PaginatedStaffList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Staff'
+    PaginatedStudentGetAttendanceList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentGetAttendance'
+    PaginatedStudentListList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentList'
+    PaginatedWorksheetLogList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorksheetLog'
+    PaginatedWorksheetViewList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorksheetView'
+    PatchedBulkItemRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        quantity:
+          type: integer
+    PatchedClassRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+    PatchedContactRequest:
+      type: object
+      description: Serializer for contact details.
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        phone_home:
+          type: string
+          maxLength: 17
+        phone_business:
+          type: string
+          maxLength: 17
+        phone_mobile:
+          type: string
+          minLength: 1
+          maxLength: 17
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        address:
+          $ref: '#/components/schemas/AddressRequest'
+    PatchedItemLoanRequest:
+      type: object
+      properties:
+        item_id:
+          type: integer
+        student_id:
+          type: integer
+        quantity:
+          type: integer
+    PatchedLendableItemEditRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        quantity_available:
+          type: integer
+    PatchedLessonEditRequest:
+      type: object
+      properties:
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        class_fk:
+          type: integer
+        subject_level:
+          type: integer
+    PatchedLongTermAbsenceEditRequest:
+      type: object
+      properties:
+        student:
+          type: integer
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+          minLength: 1
+    PatchedStaffRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        job_title:
+          type: string
+          minLength: 1
+          maxLength: 50
+        join_date:
+          type: string
+          format: date
+          nullable: true
+        leave_date:
+          type: string
+          format: date
+          nullable: true
+    PatchedStudentRequest:
+      type: object
+      properties:
+        k_sis_id:
+          type: integer
+          nullable: true
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        date_of_birth:
+          type: string
+          format: date
+        join_date:
+          type: string
+          format: date
+          nullable: true
+        leave_date:
+          type: string
+          format: date
+          nullable: true
+        phone_number:
+          type: string
+          minLength: 1
+          maxLength: 17
+        school:
+          type: string
+          minLength: 1
+          maxLength: 50
+        grade:
+          $ref: '#/components/schemas/GradeEnum'
+        address:
+          $ref: '#/components/schemas/AddressRequest'
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+    PatchedSubjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+    PatchedWorksheetEditRequest:
+      type: object
+      properties:
+        subject_level:
+          type: integer
+          nullable: true
+        set:
+          type: string
+          minLength: 1
+          maxLength: 50
+        quantity:
+          type: integer
+    ReturnItemRequest:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          minimum: 0
+      required:
+      - quantity
+    SetPasswordRequest:
+      type: object
+      description: Serializer for the admin to set a password for an account.
+      properties:
+        staff_id:
+          type: integer
+        new_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+        confirm_new_password:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - confirm_new_password
+      - new_password
+      - staff_id
+    Staff:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        job_title:
+          type: string
+          maxLength: 50
+        join_date:
+          type: string
+          format: date
+          nullable: true
+        leave_date:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - first_name
+      - id
+      - job_title
+      - last_name
+    StaffCreate:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        job_title:
+          type: string
+          maxLength: 50
+        username:
+          type: string
+      required:
+      - first_name
+      - job_title
+      - last_name
+      - username
+    StaffCreateRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        job_title:
+          type: string
+          minLength: 1
+          maxLength: 50
+        username:
+          type: string
+          minLength: 1
+      required:
+      - first_name
+      - job_title
+      - last_name
+      - username
+    StaffRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        job_title:
+          type: string
+          minLength: 1
+          maxLength: 50
+        join_date:
+          type: string
+          format: date
+          nullable: true
+        leave_date:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - first_name
+      - job_title
+      - last_name
+    StatusEnum:
+      enum:
+      - P
+      - L
+      - A
+      - U
+      type: string
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        k_sis_id:
+          type: integer
+          nullable: true
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        date_of_birth:
+          type: string
+          format: date
+        join_date:
+          type: string
+          format: date
+          nullable: true
+        leave_date:
+          type: string
+          format: date
+          nullable: true
+        phone_number:
+          type: string
+          maxLength: 17
+        school:
+          type: string
+          maxLength: 50
+        grade:
+          $ref: '#/components/schemas/GradeEnum'
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+          maxLength: 254
+      required:
+      - address
+      - date_of_birth
+      - email
+      - first_name
+      - grade
+      - id
+      - last_name
+      - phone_number
+      - school
+    StudentAddContactsRequest:
+      type: object
+      description: Serializer for adding contacts to a student.
+      properties:
+        contact_id:
+          type: integer
+        relationship:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - contact_id
+      - relationship
+    StudentDeleted:
+      type: object
+      description: Serializer for listing gdpr deleted student instances.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        k_sis_id:
+          type: integer
+          nullable: true
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        date_of_birth:
+          type: string
+          format: date
+        school:
+          type: string
+          maxLength: 50
+        grade:
+          $ref: '#/components/schemas/GradeEnum'
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        permanent_deletion_date:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - date_of_birth
+      - first_name
+      - grade
+      - id
+      - last_name
+      - permanent_deletion_date
+      - school
+    StudentGetAttendance:
+      type: object
+      description: Serializer for retrieving student attendance records.
+      properties:
+        lesson:
+          $ref: '#/components/schemas/LessonView'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+      required:
+      - lesson
+      - status
+    StudentGetContacts:
+      type: object
+      description: Serializer for retrieving student contact relations
+      properties:
+        contact_id:
+          $ref: '#/components/schemas/ContactList'
+        relationship:
+          type: string
+          maxLength: 50
+      required:
+      - contact_id
+      - relationship
+    StudentList:
+      type: object
+      description: Serializer for students which only includes their name and IDs.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        k_sis_id:
+          type: integer
+          nullable: true
+        first_name:
+          type: string
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        date_of_birth:
+          type: string
+          format: date
+        school:
+          type: string
+          maxLength: 50
+        grade:
+          $ref: '#/components/schemas/GradeEnum'
+      required:
+      - date_of_birth
+      - first_name
+      - grade
+      - id
+      - last_name
+      - school
+    StudentRecordSheetRequest:
+      type: object
+      description: Serializer for creating a record sheet for a specific student.
+      properties:
+        student_id:
+          type: array
+          items:
+            type: integer
+        subject_level_id:
+          type: integer
+          nullable: true
+        start_date:
+          type: string
+          format: date
+        num_days:
+          type: integer
+          maximum: 50
+          minimum: 1
+          default: 7
+        sheets_per_day:
+          type: integer
+          minimum: 1
+          default: 1
+        completion_time:
+          type: integer
+          minimum: 1
+        type:
+          type: string
+          maxLength: 50
+      required:
+      - completion_time
+      - start_date
+      - student_id
+      - subject_level_id
+      - type
+    StudentRemoveContactsRequest:
+      type: object
+      description: Serializer for removing contacts from a student.
+      properties:
+        contact_id:
+          type: integer
+      required:
+      - contact_id
+    StudentRequest:
+      type: object
+      properties:
+        k_sis_id:
+          type: integer
+          nullable: true
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        middle_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        date_of_birth:
+          type: string
+          format: date
+        join_date:
+          type: string
+          format: date
+          nullable: true
+        leave_date:
+          type: string
+          format: date
+          nullable: true
+        phone_number:
+          type: string
+          minLength: 1
+          maxLength: 17
+        school:
+          type: string
+          minLength: 1
+          maxLength: 50
+        grade:
+          $ref: '#/components/schemas/GradeEnum'
+        address:
+          $ref: '#/components/schemas/AddressRequest'
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+      required:
+      - address
+      - date_of_birth
+      - email
+      - first_name
+      - grade
+      - last_name
+      - phone_number
+      - school
+    Subject:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - name
+    SubjectAddLevelRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - name
+    SubjectGetLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - name
+    SubjectRemoveLevelRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+      required:
+      - id
+    SubjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - name
+    Type3beEnum:
+      enum:
+      - W
+      - R
+      type: string
+    WorksheetEdit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        subject_level:
+          type: integer
+          nullable: true
+        set:
+          type: string
+          maxLength: 50
+        quantity:
+          type: integer
+      required:
+      - id
+      - set
+    WorksheetEditRequest:
+      type: object
+      properties:
+        subject_level:
+          type: integer
+          nullable: true
+        set:
+          type: string
+          minLength: 1
+          maxLength: 50
+        quantity:
+          type: integer
+      required:
+      - set
+    WorksheetLog:
+      type: object
+      properties:
+        staff_id:
+          type: integer
+          nullable: true
+        type:
+          $ref: '#/components/schemas/Type3beEnum'
+        quantity:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - quantity
+      - type
+    WorksheetView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        subject:
+          allOf:
+          - $ref: '#/components/schemas/Subject'
+          readOnly: true
+        subject_level:
+          $ref: '#/components/schemas/SubjectGetLevel'
+        set:
+          type: string
+          maxLength: 50
+        quantity:
+          type: integer
+      required:
+      - id
+      - set
+      - subject
+      - subject_level
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
