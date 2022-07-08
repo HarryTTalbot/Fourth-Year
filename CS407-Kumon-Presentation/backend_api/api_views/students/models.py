@@ -6,13 +6,13 @@ from django_cryptography.fields import encrypt
 class Address(models.Model):
     id = models.AutoField(primary_key=True)
 
-    line_one = encrypt(models.CharField(max_length=50))
-    line_two = encrypt(models.CharField(max_length=50, blank=True))
-    line_three = encrypt(models.CharField(max_length=50, blank=True))
-    city_town = encrypt(models.CharField(max_length=50, blank=True))
-    province_district = encrypt(models.CharField(max_length=50, blank=True))
-    post_code = encrypt(models.CharField(max_length=50))
-    country = encrypt(models.CharField(max_length=50))
+    line_one = models.CharField(max_length=50)
+    line_two = models.CharField(max_length=50, blank=True)
+    line_three = models.CharField(max_length=50, blank=True)
+    city_town = models.CharField(max_length=50, blank=True)
+    province_district = models.CharField(max_length=50, blank=True)
+    post_code = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -36,23 +36,23 @@ GRADE_TYPES = (
 class Student(models.Model):
     id = models.AutoField(primary_key=True)
 
-    k_sis_id = encrypt(models.BigIntegerField(unique=True, blank=True, null=True))
+    k_sis_id = models.BigIntegerField(unique=True, blank=True, null=True)
 
     first_name = models.CharField(max_length=50)
-    middle_name = encrypt(models.CharField(max_length=50, blank=True))
+    middle_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50)
 
-    date_of_birth = encrypt(models.DateField())
-    join_date = encrypt(models.DateField(blank=True, null=True))
-    leave_date = encrypt(models.DateField(blank=True, null=True))
+    date_of_birth = models.DateField()
+    join_date = models.DateField(blank=True, null=True)
+    leave_date = models.DateField(blank=True, null=True)
 
-    phone_number = encrypt(models.CharField(max_length=17))
+    phone_number = models.CharField(max_length=17)
     address = models.ForeignKey(Address, on_delete=models.PROTECT)
-    school = encrypt(models.CharField(max_length=50))
-    grade = encrypt(models.CharField(max_length=2, choices=GRADE_TYPES))
-    email = encrypt(models.EmailField())
+    school = models.CharField(max_length=50)
+    grade = models.CharField(max_length=2, choices=GRADE_TYPES)
+    email = models.EmailField()
 
-    deleted_at = encrypt(models.DateTimeField(blank=True, null=True))
+    deleted_at = models.DateTimeField(blank=True, null=True)
     GDPR_RETENTION_PERIOD = datetime.timedelta(days=12 * 30)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -68,16 +68,16 @@ class Contact_Detail(models.Model):
     id = models.AutoField(primary_key=True)
 
     first_name = models.CharField(max_length=50)
-    middle_name = encrypt(models.CharField(max_length=50, blank=True))
+    middle_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50)
 
     address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
 
-    phone_home = encrypt(models.CharField(max_length=17, blank=True))
-    phone_business = encrypt(models.CharField(max_length=17, blank=True))
-    phone_mobile = encrypt(models.CharField(max_length=17))
+    phone_home = models.CharField(max_length=17, blank=True)
+    phone_business = models.CharField(max_length=17, blank=True)
+    phone_mobile = models.CharField(max_length=17)
 
-    email = encrypt(models.EmailField())
+    email = models.EmailField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -99,7 +99,7 @@ class Student_Contact(models.Model):
         Contact_Detail, related_name='student_contacts', on_delete=models.CASCADE
     )
 
-    relationship = encrypt(models.CharField(max_length=50))
+    relationship = models.CharField(max_length=50)
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)

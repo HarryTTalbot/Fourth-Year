@@ -75,8 +75,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <!-- Logo and Application Name -->
-    <Image src="static/KMS_K.png" style="width:35px;height:35px;" />
+
     <a class="navbar-brand" href="/dashboard" use:link>
+    <Image src="static/KMS_K.png" style="width:35px;height:35px;" />
       Kumon Management System
     </a>
 

@@ -7,7 +7,7 @@ from django_cryptography.fields import encrypt
 class BulkItem(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
-    quantity = encrypt(models.PositiveIntegerField(default=0))
+    quantity = models.PositiveIntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -19,9 +19,9 @@ class BulkItem(models.Model):
 class BulkItemLog(models.Model):
     item_id = models.ForeignKey(BulkItem, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL)
-    type = encrypt(models.CharField(max_length=1, choices=[
-                            ('W', 'Withdrawal'), ('R', 'Restock')]))
-    quantity = encrypt(models.PositiveIntegerField())
+    type = models.CharField(max_length=1, choices=[
+                            ('W', 'Withdrawal'), ('R', 'Restock')])
+    quantity = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -36,7 +36,7 @@ class Worksheet(models.Model):
         Subject_Level, null=True, on_delete=models.SET_NULL)
     set = models.CharField(max_length=50)
 
-    quantity =encrypt( models.PositiveIntegerField(default=0))
+    quantity = models.PositiveIntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -48,9 +48,9 @@ class Worksheet(models.Model):
 class WorksheetLog(models.Model):
     worksheet_id = models.ForeignKey(Worksheet, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL)
-    type = encrypt(models.CharField(max_length=1, choices=[
-                            ('W', 'Withdrawal'), ('R', 'Restock')]))
-    quantity = encrypt(models.PositiveIntegerField())
+    type = models.CharField(max_length=1, choices=[
+                            ('W', 'Withdrawal'), ('R', 'Restock')])
+    quantity = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -100,7 +100,7 @@ class ItemLoanLog(models.Model):
     quantity_lent = models.PositiveIntegerField()
     quantity_returned = models.PositiveIntegerField()
 
-    loan_datetime = encrypt(models.DateTimeField())
+    loan_datetime = models.DateTimeField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)

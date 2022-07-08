@@ -1,7 +1,7 @@
 #!/bin/sh
 # Entrypoint for the Django Dockerfile
 # NOTE: On Windows, make sure the line endings for this are in LF (otherwise the container won't be able to run this)
-export KUMON_DEVELOPMENT=1
+export KUMON_DEVELOPMENT=0
 
 echo "Creating backend API migrations..."
 python manage.py makemigrations backend_api

@@ -243,6 +243,7 @@
       <Button
         id="addLendableItem"
         color="success"
+        style="float: right;"
         on:click={() => handleAddLendableItem()}
       >
         <Icon name="plus-square" />

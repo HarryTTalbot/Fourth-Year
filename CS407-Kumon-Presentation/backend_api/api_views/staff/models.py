@@ -8,13 +8,13 @@ class Staff(models.Model):
     id = models.AutoField(primary_key=True)
 
     first_name = models.CharField(max_length=50)
-    middle_name = encrypt(models.CharField(max_length=50, blank=True))
+    middle_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50)
 
     job_title = models.CharField(max_length=50)
 
-    join_date = encrypt(models.DateField(blank=True, null=True))
-    leave_date = encrypt(models.DateField(blank=True, null=True))
+    join_date = models.DateField(blank=True, null=True)
+    leave_date = models.DateField(blank=True, null=True)
 
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
     passcode = models.CharField(max_length=50, null=True)
@@ -22,7 +22,7 @@ class Staff(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
 
-    deleted_at = encrypt(models.DateTimeField(blank=True, null=True))
+    deleted_at = models.DateTimeField(blank=True, null=True)
     GDPR_RETENTION_PERIOD = datetime.timedelta(days=60 * 30)
 
     class Meta:

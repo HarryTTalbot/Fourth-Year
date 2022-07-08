@@ -36,7 +36,7 @@ class Attendance(models.Model):
 
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    status = encrypt(models.CharField(max_length=1, choices=ATTENDANCE_TYPES))
+    status = models.CharField(max_length=1, choices=ATTENDANCE_TYPES)
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
@@ -53,10 +53,10 @@ class LongTermAbsence(models.Model):
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
-    start_date = encrypt(models.DateField())
-    end_date = encrypt(models.DateField())
+    start_date = models.DateField()
+    end_date = models.DateField()
 
-    reason = encrypt(models.TextField())
+    reason = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)

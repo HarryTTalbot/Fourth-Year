@@ -289,7 +289,7 @@ def make_data(data_file, include_staff_email=False):
             }]
 
     # insert subjects subject-levels
-    subjects = ("Necromancy", "Astronomy", "Archaeology", "Philately", "Basket-weaving", "Forestry", "Animal husbandry", "Albanian language", "Mediæval French poetry", "Calligraphy", "Ballet", "Freudian psychoanalysis", "Contemporary Californian viticulture", "Maritime engineering", "Interpretive taxidermy", "Hot air balloon piloting", "Bankruptcy law", "Differential geometry", "Dentistry")
+    subjects = ("English", "Mathematics")#("Necromancy", "Astronomy", "Archaeology", "Philately", "Basket-weaving", "Forestry", "Animal husbandry", "Albanian language", "Mediæval French poetry", "Calligraphy", "Ballet", "Freudian psychoanalysis", "Contemporary Californian viticulture", "Maritime engineering", "Interpretive taxidermy", "Hot air balloon piloting", "Bankruptcy law", "Differential geometry", "Dentistry")
     for subject in subjects:
         subject_pk = gen_pk(used_pks["subject"])
         data_out["backend_api.subject"] += [
@@ -394,7 +394,7 @@ def make_data(data_file, include_staff_email=False):
         add_lesson(date)
 
     # add bulk itmes and bulk item logs
-    bulk_items = ("Pencil", "Scalpel", "Paintbrush", "Spatula")
+    bulk_items = ("Pencil", "Colour Pencils", "Blue Pens", "Black Pens", "Green Pens", "Red Pens", "Blankets", "Calculators", "Pillows", "Whiteboards", "Whiteboard Markers")
     for item in bulk_items:
         item_id = gen_pk(used_pks["bulkitem"])
         data_out["backend_api.bulkitem"] += [
@@ -440,7 +440,8 @@ def make_data(data_file, include_staff_email=False):
                             }
                         ]
 
-    lendable_items = ("Industrial Society and Its Future by Ted Kaczynski", "Catechism of the Catholic Church")
+    lendable_items = ("Mathematics Grade 1", "Mathematics Grade 2", "Mathematics Grade 3", "Mathematics Grade 4", "Mathematics Grade 5",
+                                "English Spelling 1", "English Spelling 2", "English Spelling 3", "English Grammar 1", "English Grammar 2", "English Grammar 3")#("Industrial Society and Its Future by Ted Kaczynski", "Catechism of the Catholic Church")
     for item in lendable_items:
         item_id = gen_pk(used_pks["lendableitem"])
         data_out["backend_api.lendableitem"] += [
